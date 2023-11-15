@@ -1,12 +1,13 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
+import router from './router'
 import App from './App.vue'
 
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
-createApp(App)
+const app = createApp(App)
 .use(Toast, {
   transition: "Vue-Toastification__bounce",
   position: "top-center",
@@ -21,4 +22,8 @@ createApp(App)
   icon: true,
   rtl: false
 })
-.mount('#app')
+
+
+app.use(router)
+app.mount('#app')
+

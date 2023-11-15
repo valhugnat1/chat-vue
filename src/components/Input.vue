@@ -19,7 +19,7 @@ onAuthStateChanged(auth, (userState) => {
 });
 
 function handleSendClick() {
-  if (isUserSignedIn.value) { 
+  if (true/* isUserSignedIn.value */) { 
     if (message.value.trim() !== '') {
       emit('send', message.value.trim())
       message.value = ''

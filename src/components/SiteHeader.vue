@@ -1,16 +1,45 @@
 <script setup lang="ts">
 import ThemeToggler from './ThemeToggler.vue'
-import UserAvatar from './UserAvatar.vue';
-import { Bot } from 'lucide-vue-next';
+import UserAvatar from './UserAvatar.vue'
+import { Bot } from 'lucide-vue-next'
+import { supabase } from '@/supabase'
+</script>
+
+<script lang="ts">
+export default {
+  data() {
+    return {
+      session: '' as string,
+    }
+  },
+  async mounted() {
+    try {
+      const { data } = await supabase.auth.getSession()
+      if (data) {
+        this.session = data.session.user.email
+        console.log(this.session)
+      }
+    } catch (error) {
+      console.error('Error fetching session:', error)
+    }
+  },
+  computed: {
+    currentURL() {
+      return window.location.pathname
+    },
+  },
+}
 </script>
 
 <template>
   <header class="bg-background sticky top-0 z-40 w-full border-b">
     <div class="container flex h-16 items-center justify-between">
-      <nav class="flex items-center space-x-2 ml-3">
-        <Bot class="w-6 h-6 mr-2" />
-        <span class="font-bold">DennX</span>
-      </nav>
+      <router-link to="/">
+        <nav class="flex items-center space-x-2 ml-3">
+          <Bot class="w-6 h-6 mr-2" />
+          <span class="font-bold">DennX</span>
+        </nav>
+      </router-link>
       <div class="flex flex-1 items-center justify-end space-x-2">
         <nav class="md:flex items-center space-x-2">
           <ThemeToggler />
@@ -18,6 +47,7 @@ import { Bot } from 'lucide-vue-next';
         <nav class="md:flex items-center space-x-2">
           <UserAvatar />
         </nav>
+        {{ session }}
       </div>
     </div>
   </header>
