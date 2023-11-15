@@ -227,6 +227,7 @@
                       Login with Google
                       <span
                         class="tracking-normal text-sky-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1"
+                        style="color: black"
                         >-&gt;</span
                       >
                     </button>
@@ -311,7 +312,7 @@ export default {
   border-radius: 3px;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
 
-  color: #757575;
+  color: black; /* #757575;*/
   font-size: 14px;
   font-weight: 500;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -346,5 +347,10 @@ export default {
 
 .btn-sm {
   height: 2.5rem;
+}
+
+input {
+  color: black;
+  padding-left: 0.25rem;
 }
 </style>

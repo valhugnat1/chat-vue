@@ -22,6 +22,17 @@ export default {
     } catch (error) {
       console.error('Error fetching session:', error)
     }
+
+    supabase.auth.onAuthStateChange((event: any, session: any) => {
+      console.log(event)
+      if (event == 'SIGNED_OUT') {
+        this.session = ''
+      } else if (event != 'INITIAL_SESSION') {
+        console.log(session)
+
+        // this.session = session.user.email
+      }
+    })
   },
   computed: {
     currentURL() {
@@ -37,7 +48,7 @@ export default {
       <router-link to="/">
         <nav class="flex items-center space-x-2 ml-3">
           <Bot class="w-6 h-6 mr-2" />
-          <span class="font-bold">DennX</span>
+          <span class="font-bold">ChatBot</span>
         </nav>
       </router-link>
       <div class="flex flex-1 items-center justify-end space-x-2">
