@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { History } from 'lucide-vue-next'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { X } from 'lucide-vue-next'
 
 interface Chat {
@@ -18,12 +17,11 @@ interface Chat {
 }
 
 const chats = ref<Chat[]>([])
-const auth = getAuth()
 const emit = defineEmits(['chat-selected'])
-
+/*
 onAuthStateChanged(auth, user => {
   if (user) {
-    /*
+    
     const chatsRef = collection(db, 'chats')
     const q = query(chatsRef, where('userId', '==', user.uid))
 
@@ -47,12 +45,12 @@ onAuthStateChanged(auth, user => {
       .catch(error => {
         console.error('Error fetching chats:', error)
       })
-      */
+      
   } else {
     chats.value = []
   }
 })
-
+*/
 function handleSelectChat(chat: Chat) {
   emit('chat-selected', { messages: chat.messages, id: chat.id })
 }

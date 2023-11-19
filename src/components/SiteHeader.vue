@@ -14,7 +14,7 @@ export default {
     }
   },
   async mounted() {
-    /*     try {
+    try {
       const { data }: any = await supabase.auth.getSession()
       if (data) {
         this.session = data.session.user.email
@@ -31,9 +31,9 @@ export default {
       } else if (event != 'INITIAL_SESSION') {
         console.log(session)
 
-        // this.session = session.user.email
+        this.session = session.user.email
       }
-    }) */
+    })
   },
   computed: {
     currentURL() {

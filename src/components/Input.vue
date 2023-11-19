@@ -4,22 +4,15 @@ import { Send, PlusCircle } from 'lucide-vue-next'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import SiteFooter from './SiteFooter.vue'
-import { auth } from '@/lib/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
 import { useToast } from 'vue-toastification'
 
 const message = ref('')
-const isUserSignedIn = ref(false)
 const toast = useToast()
 
 const emit = defineEmits(['send', 'clear-chat'])
 
-onAuthStateChanged(auth, userState => {
-  isUserSignedIn.value = !!userState
-})
-
 function handleSendClick() {
-  if (true /* isUserSignedIn.value */) {
+  if (true) {
     if (message.value.trim() !== '') {
       emit('send', message.value.trim())
       message.value = ''

@@ -72,6 +72,10 @@ function handleClearChat() {
 }
 
 function formatMessage(message: string) {
+  if (typeof message !== 'string' || message === undefined) {
+    return ''
+  }
+
   let formattedMessage = message
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n/g, '<br />')

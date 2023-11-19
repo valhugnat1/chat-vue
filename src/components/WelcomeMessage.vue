@@ -7,19 +7,13 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { onAuthStateChanged, type User } from 'firebase/auth'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
-import { auth } from '@/lib/firebase'
 
 const toast = useToast()
 const emit = defineEmits(['send-prompt'])
 
-const user = ref<User | null>(null)
-
-onAuthStateChanged(auth, userState => {
-  user.value = userState
-})
+// const user = ref<User | null>(null)
 
 const examplePrompts = [
   'Explain quantum physics in a pirate voice.',

@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { log } from "console";
 
 export async function sendPrompt(message: string) {
   try {
@@ -12,11 +13,13 @@ export async function sendPrompt(message: string) {
 
     console.log(response);
     
-    //const response = {"data": {"message":"fake response"}}
     return response.data.answer;
   } catch (error: any) {
+    
     if (error.response && error.response.status === 500) {
       return "I'm sorry, but I cannot answer that.";
+    } else if (error.code == "ERR_NETWORK") {
+      return "I'm sorry, but the server seems unavailable, please try again later.";
     }
   }
 }
