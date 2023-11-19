@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { supabase } from './supabase'
+import { supabase } from '@/lib/supabase'
 
 import Home from './views/Home.vue'
 import SignIn from './views/SignIn.vue'

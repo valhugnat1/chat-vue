@@ -2,7 +2,8 @@
 import ThemeToggler from './ThemeToggler.vue'
 import UserAvatar from './UserAvatar.vue'
 import { Bot } from 'lucide-vue-next'
-import { supabase } from '@/supabase'
+// @ts-ignore
+import { supabase } from '@/lib/supabase'
 </script>
 
 <script lang="ts">
@@ -13,8 +14,8 @@ export default {
     }
   },
   async mounted() {
-    try {
-      const { data } = await supabase.auth.getSession()
+    /*     try {
+      const { data }: any = await supabase.auth.getSession()
       if (data) {
         this.session = data.session.user.email
         console.log(this.session)
@@ -32,7 +33,7 @@ export default {
 
         // this.session = session.user.email
       }
-    })
+    }) */
   },
   computed: {
     currentURL() {

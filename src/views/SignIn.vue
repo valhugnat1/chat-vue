@@ -114,7 +114,7 @@
 </template>
 <script>
 import { ref } from 'vue'
-import { supabase } from '../supabase' // Path to your supabase.js file
+import { supabase } from '@/lib/supabase' // Path to your supabase.js file
 
 export default {
   name: 'SignIn',

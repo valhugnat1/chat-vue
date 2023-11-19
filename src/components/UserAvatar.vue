@@ -9,11 +9,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
-import { signInWithGoogle } from '@/api/user'
+// import { signInWithGoogle } from '@/api/user'
 
-import { auth } from '@/lib/firebase'
 // import { signOut } from 'firebase/auth'
-import { supabase } from '@/supabase'
+// import supabase from '@/supabase'
 /* 
 const user = ref<User | null>(null)
 
@@ -58,24 +57,26 @@ export default {
     }
   },
   async mounted() {
-    try {
-      const { data } = await supabase.auth.getSession()
+    /* try {
+      const { data }: any = await supabase.auth.getSession()
       if (data) {
         this.session = data.session.user.email
         console.log(this.session)
       }
     } catch (error) {
       console.error('Error fetching session:', error)
-    }
+    } */
   },
   methods: {
     async signOut() {
+      /* 
       try {
         this.session = ''
         await supabase.auth.signOut()
       } catch (error) {
         console.error('Error signing out:', error)
       }
+      */
     },
   },
 }

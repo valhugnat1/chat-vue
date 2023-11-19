@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { sendPrompt } from '@/api/ai'
+import { type User } from '@/api/user'
 import Message from './Message.vue'
 import Input from './Input.vue'
 import WelcomeMessage from './WelcomeMessage.vue'
-import { auth, db } from '@/lib/firebase';
-import { type User, onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import ChatHistory from './ChatHistory.vue'
+// @ts-ignore
+import { supabase } from '@/lib/supabase'
 
 export interface Message {
   text: string
@@ -15,41 +15,33 @@ export interface Message {
 }
 
 const messages = ref<Message[]>([])
-const user = ref<User | null>(null);
-const chatId = ref<string | null>(null);
-const aiThinking = ref(false);
+const user = ref<User | null>(null)
+const chatId = ref<string | null>(null)
+const aiThinking = ref(false)
 
 onMounted(() => {
-  const unsubscribe = onAuthStateChanged(auth, (userState) => {
-    user.value = userState;
-
-    if (!user.value) {
-      messages.value = [];
-      chatId.value = null;
-    }
-  });
-
-  return unsubscribe;
-});
+  const userSession = supabase.auth.getSession()
+  console.log(userSession)
+})
 
 async function handleSend(text: string) {
   messages.value.push({ text, sender: 'user' })
 
-  aiThinking.value = true;
-  const aiMessage = await sendPrompt(text) 
-  aiThinking.value = false;
-  
+  aiThinking.value = true
+  const aiMessage = await sendPrompt(text)
+  aiThinking.value = false
+
   messages.value.push({ text: aiMessage, sender: 'ai' })
 
   if (user.value) {
     if (!chatId.value) {
-      chatId.value = `${user.value.uid}_${Date.now()}`;
+      chatId.value = `${user.value.uid}_${Date.now()}`
     }
-    const chatRef = doc(db, 'chats', chatId.value);
+    /*const chatRef = doc(db, 'chats', chatId.value)
 
     try {
-      const existingChat = await getDoc(chatRef);
-      const title = messages.value[0]?.text || '';
+      const existingChat = await getDoc(chatRef)
+      const title = messages.value[0]?.text || ''
 
       if (!existingChat.exists()) {
         await setDoc(chatRef, {
@@ -57,34 +49,34 @@ async function handleSend(text: string) {
           chatId: chatId.value,
           messages: messages.value,
           title,
-        });
+        })
       } else {
         await updateDoc(chatRef, {
           messages: messages.value,
           title,
-        });
+        })
       }
     } catch (error) {
-      console.error('Error saving chat:', error);
-    }
+      console.error('Error saving chat:', error)
+    }*/
   }
 }
 
-const onChatSelected = (selectedChat: { messages: Message[], id: string }) => {
-  messages.value = selectedChat.messages;
-  chatId.value = selectedChat.id;
-};
+const onChatSelected = (selectedChat: { messages: Message[]; id: string }) => {
+  messages.value = selectedChat.messages
+  chatId.value = selectedChat.id
+}
 
 function handleClearChat() {
-  messages.value = [];
-};
+  messages.value = []
+}
 
 function formatMessage(message: string) {
   let formattedMessage = message
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n/g, '<br />'); 
+    .replace(/\n/g, '<br />')
 
-  return formattedMessage;
+  return formattedMessage
 }
 </script>
 
@@ -96,8 +88,10 @@ function formatMessage(message: string) {
       :key="index"
       :class="[
         'p-2 rounded-md',
-        message.sender === 'user' ? 'bg-primary text-white dark:text-black' : 'bg-secondary',
-        message.sender === 'user' ? 'self-end' : 'self-start'
+        message.sender === 'user'
+          ? 'bg-primary text-white dark:text-black'
+          : 'bg-secondary',
+        message.sender === 'user' ? 'self-end' : 'self-start',
       ]"
     >
       <div v-html="formatMessage(message.text)"></div>
@@ -111,3 +105,4 @@ function formatMessage(message: string) {
     <Input @send="handleSend" @clear-chat="handleClearChat" />
   </div>
 </template>
+@/lib/supabase

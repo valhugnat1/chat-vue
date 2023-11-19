@@ -7,19 +7,19 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { onAuthStateChanged, type User } from 'firebase/auth';
-import { ref } from 'vue';
-import { useToast } from 'vue-toastification';
-import { auth } from '@/lib/firebase';
+import { onAuthStateChanged, type User } from 'firebase/auth'
+import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
+import { auth } from '@/lib/firebase'
 
-const toast = useToast();
-const emit = defineEmits(['send-prompt']);
+const toast = useToast()
+const emit = defineEmits(['send-prompt'])
 
-const user = ref<User | null>(null);
+const user = ref<User | null>(null)
 
-onAuthStateChanged(auth, (userState) => {
-  user.value = userState;
-});
+onAuthStateChanged(auth, userState => {
+  user.value = userState
+})
 
 const examplePrompts = [
   'Explain quantum physics in a pirate voice.',
@@ -28,10 +28,10 @@ const examplePrompts = [
 ]
 
 function handlePromptClick(prompt: string) {
-  if (user.value) {
-    emit('send-prompt', prompt);
+  if (true /* user.value */) {
+    emit('send-prompt', prompt)
   } else {
-    toast.error('Please sign in to send a message.');
+    toast.error('Please sign in to send a message.')
   }
 }
 </script>
@@ -40,12 +40,15 @@ function handlePromptClick(prompt: string) {
   <Card>
     <CardHeader>
       <CardTitle>Hello, I'm DennX!</CardTitle>
-      <CardDescription>Start a conversation with me by sending a message or by clicking the example prompts.</CardDescription>
+      <CardDescription
+        >Start a conversation with me by sending a message or by clicking the
+        example prompts.</CardDescription
+      >
     </CardHeader>
     <CardContent class="flex flex-col gap-4 my-3">
-      <Button 
-        v-for="(prompt, index) in examplePrompts" 
-        :key="index" 
+      <Button
+        v-for="(prompt, index) in examplePrompts"
+        :key="index"
         variant="outline"
         @click="handlePromptClick(prompt)"
       >
