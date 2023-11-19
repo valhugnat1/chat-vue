@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { sendPrompt } from '@/api/ai'
+import { createConv, updateConv } from '@/api/messageHistory'
 import { type User } from '@/api/user'
 import Message from './Message.vue'
 import Input from './Input.vue'
@@ -19,9 +20,15 @@ const user = ref<User | null>(null)
 const chatId = ref<string | null>(null)
 const aiThinking = ref(false)
 
-onMounted(() => {
-  const userSession = supabase.auth.getSession()
-  console.log(userSession)
+onMounted(async () => {
+  const userSession = await supabase.auth.getSession()
+
+  user.value = {
+    id: userSession.data.session.user.id,
+    email: userSession.data.session.user.email,
+  }
+
+  console.log(user)
 })
 
 async function handleSend(text: string) {
@@ -35,34 +42,18 @@ async function handleSend(text: string) {
 
   if (user.value) {
     if (!chatId.value) {
-      chatId.value = `${user.value.uid}_${Date.now()}`
+      chatId.value = `${user.value.id}_${Date.now()}`
+
+      await createConv(user.value.id, chatId.value, messages.value)
+    } else {
+      await updateConv(chatId.value, messages.value)
     }
-    /*const chatRef = doc(db, 'chats', chatId.value)
-
-    try {
-      const existingChat = await getDoc(chatRef)
-      const title = messages.value[0]?.text || ''
-
-      if (!existingChat.exists()) {
-        await setDoc(chatRef, {
-          userId: user.value.uid,
-          chatId: chatId.value,
-          messages: messages.value,
-          title,
-        })
-      } else {
-        await updateDoc(chatRef, {
-          messages: messages.value,
-          title,
-        })
-      }
-    } catch (error) {
-      console.error('Error saving chat:', error)
-    }*/
   }
 }
 
 const onChatSelected = (selectedChat: { messages: Message[]; id: string }) => {
+  console.log(selectedChat)
+
   messages.value = selectedChat.messages
   chatId.value = selectedChat.id
 }

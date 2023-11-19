@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import {
   Sheet,
   SheetContent,
@@ -10,49 +10,42 @@ import {
 import { Button } from '@/components/ui/button'
 import { History } from 'lucide-vue-next'
 import { X } from 'lucide-vue-next'
+import { getUserConv } from '@/api/messageHistory'
+// @ts-ignore
+import { supabase } from '@/lib/supabase'
+import type { User } from '@/api/user'
 
+const user = ref<User | null>(null)
 interface Chat {
   title: string
   [key: string]: any
 }
-
 const chats = ref<Chat[]>([])
 const emit = defineEmits(['chat-selected'])
-/*
-onAuthStateChanged(auth, user => {
-  if (user) {
-    
-    const chatsRef = collection(db, 'chats')
-    const q = query(chatsRef, where('userId', '==', user.uid))
 
-    getDocs(q)
-      .then(querySnapshot => {
-        chats.value = querySnapshot.docs.map(doc => {
-          const chatData = doc.data()
-          const messages = chatData.messages
-          const userMessage = messages.find(
-            (message: { sender: string }) => message.sender === 'user'
-          )
-          let title = ''
+const sheetOpened = ref(false)
 
-          if (userMessage) {
-            title = userMessage.text.split(' ').slice(0, 5).join(' ')
-          }
+onMounted(async () => {
+  const userSession = await supabase.auth.getSession()
 
-          return { id: doc.id, ...chatData, title }
-        }) as Chat[]
-      })
-      .catch(error => {
-        console.error('Error fetching chats:', error)
-      })
-      
-  } else {
-    chats.value = []
+  user.value = {
+    id: userSession.data.session.user.id,
+    email: userSession.data.session.user.email,
+  }
+
+  console.log(user)
+
+  let value = await getUserConv(user.value.id)
+  if (value !== undefined) {
+    chats.value = value
+    console.log(chats.value)
   }
 })
-*/
+
 function handleSelectChat(chat: Chat) {
-  emit('chat-selected', { messages: chat.messages, id: chat.id })
+  console.log(chat)
+
+  emit('chat-selected', { messages: chat.messages, id: chat.chatId })
 }
 
 async function deleteChat(chat: Chat) {
