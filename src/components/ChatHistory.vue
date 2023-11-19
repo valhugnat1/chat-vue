@@ -6,6 +6,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { History } from 'lucide-vue-next'
@@ -77,8 +78,9 @@ async function deleteChat(chat: Chat) {
               variant="ghost"
               @click="handleSelectChat(chat)"
               class="w-full"
-            >
-              {{ chat.title }}
+              ><SheetClose>
+                {{ chat.title }}
+              </SheetClose>
             </Button>
             <Button variant="ghost" @click="deleteChat(chat)">
               <X class="w-5 h-5" />
