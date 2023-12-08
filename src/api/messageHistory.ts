@@ -13,7 +13,7 @@ interface Chat {
 }
 
 export async function createConv(
-  userId: string,
+  userId: string | undefined,
   idChat: string,
   message: Message[]
 ): Promise<void> {
@@ -58,7 +58,9 @@ export async function updateConv(
   }
 }
 
-export async function getUserConv(userId: string): Promise<Chat[] | undefined> {
+export async function getUserConv(
+  userId: string | undefined
+): Promise<Chat[] | undefined> {
   try {
     const { data, error }: any = await supabase
       .from('chat')

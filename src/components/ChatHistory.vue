@@ -29,17 +29,20 @@ const sheetOpened = ref(false)
 onMounted(async () => {
   const userSession = await supabase.auth.getSession()
 
-  user.value = {
-    id: userSession.data.session.user.id,
-    email: userSession.data.session.user.email,
-  }
+  if (userSession) {
+    user.value = {
+      id: userSession.data?.session?.user?.id,
+      email: userSession.data?.session?.user?.email,
+    }
 
-  console.log(user)
-
-  let value = await getUserConv(user.value.id)
-  if (value !== undefined) {
-    chats.value = value
-    console.log(chats.value)
+    console.log(user)
+    if (user.value != undefined) {
+      let value = await getUserConv(user.value.id)
+      if (value !== undefined) {
+        chats.value = value
+        console.log(chats.value)
+      }
+    }
   }
 })
 

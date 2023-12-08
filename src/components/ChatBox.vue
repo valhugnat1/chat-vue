@@ -24,8 +24,8 @@ onMounted(async () => {
   const userSession = await supabase.auth.getSession()
 
   user.value = {
-    id: userSession.data.session.user.id,
-    email: userSession.data.session.user.email,
+    id: userSession.data?.session?.user.id,
+    email: userSession.data?.session?.user.email,
   }
 
   console.log(user)
