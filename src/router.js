@@ -11,7 +11,10 @@ import ResetPassword from './views/ResetPassword.vue'
 
 import { trackRouter } from "vue-gtag-next";
 
-const routerHistory = createWebHistory()
+
+const baseRoute = process.env.VITE_BASE_URL || '/';
+
+const routerHistory = createWebHistory(baseRoute)
 
 let localUser;
 
