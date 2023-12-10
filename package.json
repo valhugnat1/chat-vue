@@ -1,7 +1,8 @@
 {
-  "name": "dennx",
+  "name": "vue-chat",
   "version": "2.0.0",
   "private": true,
+  "homepage": "https://valhugnat1.github.io/vue-chat/",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
