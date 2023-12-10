@@ -1,7 +1,7 @@
 // supabase.js
 import { createClient } from '@supabase/supabase-js';
 
-console.log(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY);
+console.log(import.meta.env.NODE_ENV);
 
 // Get the Supabase URL and public API key from environment variables
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;

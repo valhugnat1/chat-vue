@@ -12,9 +12,9 @@ import ResetPassword from './views/ResetPassword.vue'
 import { trackRouter } from "vue-gtag-next";
 
 
-const baseRoute = process.env.VITE_BASE_URL || '/';
+const baseRoute = import.meta.env.VITE_BASE_URL || '/';
 
-const routerHistory = createWebHistory('/chat-vue/')
+const routerHistory = createWebHistory(baseRoute)
 
 let localUser;
 
