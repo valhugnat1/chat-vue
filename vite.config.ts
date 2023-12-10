@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/chat-vue/',
+  base: 'https://valhugnat1.github.io/chat-vue/',
   plugins: [vue()],
   resolve: {
     alias: {
