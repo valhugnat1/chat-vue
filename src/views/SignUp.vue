@@ -293,7 +293,7 @@ export default {
 
         if (error) throw error
         else {
-          this.$router.push('/dashboards')
+          this.$router.push('/')
         }
       } catch (error) {
         alert(error.error_description || error.message)

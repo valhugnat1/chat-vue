@@ -8,15 +8,13 @@ import ResetPassword from './views/ResetPassword.vue'
 
 // import ResetPassword from './pages/ResetPassword.vue'
 
+import { trackRouter } from 'vue-gtag-next'
 
-import { trackRouter } from "vue-gtag-next";
-
-
-const baseRoute = import.meta.env.VITE_BASE_URL || '/';
+const baseRoute = import.meta.env.VITE_BASE_URL || '/'
 
 const routerHistory = createWebHistory(baseRoute)
 
-let localUser;
+let localUser
 
 const router = createRouter({
   scrollBehavior(to) {
@@ -27,52 +25,43 @@ const router = createRouter({
       window.scroll({ top: 0 })
       document.querySelector('html').style.scrollBehavior = ''
     }
-  },  
+  },
   history: routerHistory,
   routes: [
     {
       path: '/',
-      component: Home
+      component: Home,
     },
     {
       path: '/signin',
-      component: SignIn
+      component: SignIn,
     },
     {
       path: '/signup',
-      component: SignUp
-    }, 
+      component: SignUp,
+    },
     {
       path: '/reset-password',
-      component: ResetPassword
-    },  
-/*     {
-      path: '/dashboard',
-      component: dashboard,
-      meta: { requiresAuth: true }
-    }, */
-    
-  ]
+      component: ResetPassword,
+    },
+  ],
 })
 
 async function getUser(next) {
-	localUser = await supabase.auth.getSession();
-	if (localUser.data.session == null) {
-		next('/signin')
-	}
-	else {
-		next();
-	}
+  localUser = await supabase.auth.getSession()
+  if (localUser.data.session == null) {
+    next('/signin')
+  } else {
+    next()
+  }
 }
 
-
 router.beforeEach((to, from, next) => {
-	if (to.meta.requiresAuth) {
-		getUser(next);
-	}
-	else {
-		next();
-	}
+  if (to.meta.requiresAuth) {
+    getUser(next)
+  } else {
+    next()
+  }
 })
 
 // trackRouter(router);

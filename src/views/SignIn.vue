@@ -136,7 +136,7 @@ export default {
           console.log(error)
         } else {
           console.log(data)
-          this.$router.push('/dashboard')
+          this.$router.push('/')
         }
       } catch (error) {
         console.log(error)
@@ -150,7 +150,7 @@ export default {
 
         if (error) throw error
         else {
-          this.$router.push('/dashboard')
+          this.$router.push('/')
         }
       } catch (error) {
         alert(error.error_description || error.message)

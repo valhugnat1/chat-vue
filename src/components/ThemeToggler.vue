@@ -27,7 +27,7 @@ onUnmounted(() => {
 
 <template>
   <Button @click="toggleDarkMode" variant="ghost">
-    <div v-if="isDarkMode" >
+    <div v-if="isDarkMode">
       <Moon class="h-5 w-5" />
     </div>
     <div v-else>

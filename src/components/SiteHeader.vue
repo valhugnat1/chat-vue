@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase'
 </script>
 
 <script lang="ts">
+import logoImage from '@/assets/logo-horizontal-white-1.png'
 export default {
   data() {
     return {
@@ -48,8 +49,16 @@ export default {
     <div class="container flex h-16 items-center justify-between">
       <router-link to="/">
         <nav class="flex items-center space-x-2 ml-3">
-          <Bot class="w-6 h-6 mr-2" />
-          <span class="font-bold">ChatBot</span>
+          <!-- <Bot class="w-6 h-6 mr-2" /> -->
+          <div class="w-24">
+            <img
+              :src="logoImage"
+              alt="Logo"
+              class="w-full h-full object-contain"
+            />
+          </div>
+
+          <!-- <span class="font-bold">ChatBot</span> -->
         </nav>
       </router-link>
       <div class="flex flex-1 items-center justify-end space-x-2">
@@ -64,3 +73,10 @@ export default {
     </div>
   </header>
 </template>
+
+<style scoped>
+header {
+  background-color: #000e5c; /* Set the desired background color */
+  color: white;
+}
+</style>

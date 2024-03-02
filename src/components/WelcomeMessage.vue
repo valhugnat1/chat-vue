@@ -33,10 +33,9 @@ function handlePromptClick(prompt: string) {
 <template>
   <Card>
     <CardHeader>
-      <CardTitle>Hello, I'm DennX!</CardTitle>
+      <CardTitle>Hello, I'm Craft GPT !</CardTitle>
       <CardDescription
-        >Start a conversation with me by sending a message or by clicking the
-        example prompts.</CardDescription
+        >Start a conversation with me by sending a message.</CardDescription
       >
     </CardHeader>
     <CardContent class="flex flex-col gap-4 my-3">
@@ -44,6 +43,7 @@ function handlePromptClick(prompt: string) {
         v-for="(prompt, index) in examplePrompts"
         :key="index"
         variant="outline"
+        :example="true"
         @click="handlePromptClick(prompt)"
       >
         {{ prompt }}

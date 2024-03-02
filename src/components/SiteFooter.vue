@@ -1,21 +1,17 @@
 <template>
- <footer className="mt-auto">
+  <footer className="mt-auto">
     <div className="mx-auto w-full max-w-screen-xl p-2">
       <span className="text-center block text-sm text-muted-foreground">
-        <a
-          target="_blank"
-          href="https://github.com/sinnedpenguin/dennx"
-          className="hover:underline"
-        >
-          DennX
+        <a target="_blank" href="https://craft.ai" className="hover:underline">
+          Craft GPT
         </a>
-          - AI-powered chatbot -
+        - AI-powered chatbot -
         <a
           target="_blank"
           href="https://sinnedpenguin.me/"
           className="hover:underline"
         >
-          sinnedpenguin
+          Mistral 7B model
         </a>
       </span>
     </div>
