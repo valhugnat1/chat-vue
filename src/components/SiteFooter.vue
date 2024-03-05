@@ -6,11 +6,7 @@
           Craft GPT
         </a>
         - AI-powered chatbot -
-        <a
-          target="_blank"
-          href="https://sinnedpenguin.me/"
-          className="hover:underline"
-        >
+        <a target="_blank" href="https://craft.ai/" className="hover:underline">
           Mistral 7B model
         </a>
       </span>
