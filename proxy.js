@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+require('dotenv').config()
 
 const app = express()
 const PORT = 3000
@@ -9,8 +10,7 @@ app.use(express.json()) // Middleware to parse JSON bodies
 app.use(cors())
 
 app.post('/execute-code', (req, res) => {
-  const ENDPOINT_TOKEN =
-    'yX1_xb-nmlUJbwcl6W0obX5zoDsrnJm6B0Ni_bJiFWO6A33WTcRYXTPGmfEyxVDjaNAohmxp7NW5ZQCR0xLwmw'
+  const ENDPOINT_TOKEN = process.env.VITE_API_TOKEN || ''
 
   // Extract the "message" from the request body
   const message = req.body.query || ''
